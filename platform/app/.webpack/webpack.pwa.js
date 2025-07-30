@@ -83,6 +83,7 @@ module.exports = (env, argv) => {
           __dirname,
           '/Users/ethan/src/OHIF-Viewers-Export-Extension/custom-modes/zip-mode/node_modules'
         ),
+        path.resolve(__dirname, 'custom-extensions/zip-export/node_modules'),
       ],
     },
     plugins: [

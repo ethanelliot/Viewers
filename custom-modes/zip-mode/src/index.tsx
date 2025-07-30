@@ -42,8 +42,7 @@ function modeFactory({ modeConfiguration }) {
      * Services and other resources.
      */
     onModeEnter: ({ servicesManager, extensionManager, commandsManager }: withAppTypes) => {
-      const { measurementService, toolbarService, toolGroupService, iconService } =
-        servicesManager.services;
+      const { measurementService, toolbarService, toolGroupService } = servicesManager.services;
 
       measurementService.clearMeasurements();
 
@@ -59,9 +58,14 @@ function modeFactory({ modeConfiguration }) {
             icon: 'Download',
             label: 'Download Zip',
             tooltip: 'Download Zip ofimage from the active viewport along with its metadata.',
-            commandName: 'reset',
-            commandOptions: {},
-            evaluate: 'evaluate.cornerstoneTool',
+            commands: {
+              commandName: 'ZipExport',
+              context: 'DEFAULT',
+            },
+            evaluate: {
+              name: 'evaluate.action',
+              disabledText: 'No active viewport',
+            },
           },
         },
       ]);
