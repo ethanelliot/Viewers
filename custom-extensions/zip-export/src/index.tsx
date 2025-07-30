@@ -1,4 +1,5 @@
 import { id } from './id';
+import JSZip from 'jszip';
 
 /**
  * You can remove any of the following modules if you don't need them.
@@ -74,7 +75,59 @@ export default {
       definitions: {
         ZipExport: {
           commandFn: () => {
-            console.log(`Command for ZipExport was called`);
+            // Get the active viewport ID from the ViewportGridService
+            const { ViewportGridService, DisplaySetService } = servicesManager.services;
+
+            const { activeViewportId, viewports } = ViewportGridService.getState();
+
+            let displaySetInstanceUID = viewports?.get(activeViewportId)?.displaySetInstanceUIDs[0];
+
+            const displaySet = DisplaySetService.getDisplaySetByUID(displaySetInstanceUID);
+
+            const instance = displaySet?.instances?.[0] || displaySet?.instance;
+
+            console.log(instance);
+
+            const metadata = {
+              patientName: instance?.PatientName[0]?.Alphabetic,
+              studyDate: instance?.StudyDate,
+            };
+
+            const viewportElement = document.querySelector(
+              `[data-viewport-uid="${activeViewportId}"]`
+            );
+
+            if (!viewportElement) {
+              console.log('Viewport element not found');
+              return;
+            }
+            const canvas = viewportElement.querySelector('canvas');
+
+            if (!canvas) {
+              console.log('Canvas not found');
+              return;
+            }
+
+            const zip = new JSZip();
+
+            const metadataJson = JSON.stringify(metadata, null, 2);
+            zip.file('metadata.json', metadataJson);
+
+            canvas.toBlob(blob => {
+              if (blob) {
+                const fileName = 'image.png';
+                zip.file(fileName, blob);
+
+                zip.generateAsync({ type: 'blob' }).then((content: Blob) => {
+                  const link = document.createElement('a');
+                  link.href = window.URL.createObjectURL(content);
+                  link.download = `${metadata.patientName}.zip`;
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                });
+              }
+            }, 'image/png');
           },
         },
       },
