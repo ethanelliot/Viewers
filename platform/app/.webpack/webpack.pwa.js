@@ -79,19 +79,6 @@ module.exports = (env, argv) => {
         // Hoisted Yarn Workspace Modules
         path.resolve(__dirname, '../../../node_modules'),
         SRC_DIR,
-        path.resolve(__dirname, 'custom-extensions/zip-export/node_modules'),
-        path.resolve(__dirname, 'custom-modes/zip-mode/node_modules'),
-        path.resolve(__dirname, 'custom-extensions/zip-export/node_modules'),
-        path.resolve(__dirname, 'custom-modes/zip-mode/node_modules'),
-        path.resolve(__dirname, 'custom-modes/zip-mode/node_modules'),
-        path.resolve(
-          __dirname,
-          '/Users/ethan/src/OHIF-Viewers-Export-Extension/custom-modes/zip-mode/node_modules'
-        ),
-        path.resolve(
-          __dirname,
-          '/Users/ethan/src/OHIF-Viewers-Export-Extension/custom-modes/zip-mode/node_modules'
-        ),
         path.resolve(
           __dirname,
           '/Users/ethan/src/OHIF-Viewers-Export-Extension/custom-modes/zip-mode/node_modules'

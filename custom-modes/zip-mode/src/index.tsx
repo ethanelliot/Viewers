@@ -42,14 +42,29 @@ function modeFactory({ modeConfiguration }) {
      * Services and other resources.
      */
     onModeEnter: ({ servicesManager, extensionManager, commandsManager }: withAppTypes) => {
-      const { measurementService, toolbarService, toolGroupService } = servicesManager.services;
+      const { measurementService, toolbarService, toolGroupService, iconService } =
+        servicesManager.services;
 
       measurementService.clearMeasurements();
 
       // Init Default and SR ToolGroups
       initToolGroups(extensionManager, toolGroupService, commandsManager);
 
-      toolbarService.register([...toolbarButtons]);
+      toolbarService.register([
+        ...toolbarButtons,
+        {
+          id: 'DownloadZip',
+          uiType: 'ohif.toolButton',
+          props: {
+            icon: 'Download',
+            label: 'Download Zip',
+            tooltip: 'Download Zip ofimage from the active viewport along with its metadata.',
+            commandName: 'reset',
+            commandOptions: {},
+            evaluate: 'evaluate.cornerstoneTool',
+          },
+        },
+      ]);
       toolbarService.updateSection('primary', [
         'MeasurementTools',
         'Zoom',
@@ -59,6 +74,7 @@ function modeFactory({ modeConfiguration }) {
         'Capture',
         'Layout',
         'Crosshairs',
+        'DownloadZip',
         'MoreTools',
       ]);
 
