@@ -24,6 +24,24 @@ const extensionDependencies = {
   '@ohif/extension-cornerstone-dicom-seg': '^3.0.0',
 };
 
+const zipButton = {
+  id: 'DownloadZip',
+  uiType: 'ohif.toolButton',
+  props: {
+    icon: 'Download',
+    label: 'Download Zip',
+    tooltip: 'Download Zip of image from the active viewport along with its metadata.',
+    commands: {
+      commandName: 'ZipExport',
+      context: 'ACTIVE_VIEWPORT',
+    },
+    evaluate: {
+      name: 'evaluate.action',
+      disabledText: 'No active viewport',
+    },
+  },
+};
+
 function modeFactory({ modeConfiguration }) {
   return {
     /**
@@ -49,26 +67,7 @@ function modeFactory({ modeConfiguration }) {
       // Init Default and SR ToolGroups
       initToolGroups(extensionManager, toolGroupService, commandsManager);
 
-      toolbarService.register([
-        ...toolbarButtons,
-        {
-          id: 'DownloadZip',
-          uiType: 'ohif.toolButton',
-          props: {
-            icon: 'Download',
-            label: 'Download Zip',
-            tooltip: 'Download Zip of image from the active viewport along with its metadata.',
-            commands: {
-              commandName: 'ZipExport',
-              context: 'ACTIVE_VIEWPORT',
-            },
-            evaluate: {
-              name: 'evaluate.action',
-              disabledText: 'No active viewport',
-            },
-          },
-        },
-      ]);
+      toolbarService.register([...toolbarButtons, zipButton]);
       toolbarService.updateSection('primary', [
         'MeasurementTools',
         'Zoom',
