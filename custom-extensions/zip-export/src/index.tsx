@@ -78,7 +78,7 @@ export default {
           },
         },
       },
-      defaultContext: 'DEFAULT',
+      defaultContext: 'ACTIVE_VIEWPORT',
     };
   },
   /**

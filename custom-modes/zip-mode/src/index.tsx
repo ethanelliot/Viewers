@@ -31,12 +31,12 @@ function modeFactory({ modeConfiguration }) {
      * is used to identify the mode in the viewer's state.
      */
     id,
-    routeName: 'template',
+    routeName: 'Zip Mode',
     /**
      * Mode name, which is displayed in the viewer's UI in the workList, for the
      * user to select the mode.
      */
-    displayName: 'Template Mode',
+    displayName: 'Zip Mode',
     /**
      * Runs when the Mode Route is mounted to the DOM. Usually used to initialize
      * Services and other resources.
@@ -57,10 +57,10 @@ function modeFactory({ modeConfiguration }) {
           props: {
             icon: 'Download',
             label: 'Download Zip',
-            tooltip: 'Download Zip ofimage from the active viewport along with its metadata.',
+            tooltip: 'Download Zip of image from the active viewport along with its metadata.',
             commands: {
               commandName: 'ZipExport',
-              context: 'DEFAULT',
+              context: 'ACTIVE_VIEWPORT',
             },
             evaluate: {
               name: 'evaluate.action',
@@ -158,7 +158,7 @@ function modeFactory({ modeConfiguration }) {
      */
     routes: [
       {
-        path: 'template',
+        path: 'zip-mode',
         layoutTemplate: ({ location, servicesManager }) => {
           return {
             id: ohif.layout,
