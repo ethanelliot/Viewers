@@ -122,7 +122,7 @@ function modeFactory({ modeConfiguration }) {
         cornerstoneViewportService,
         uiDialogService,
         uiModalService,
-      } = servicesManager.services as any;
+      } = servicesManager.services;
 
       uiDialogService.hideAll();
       uiModalService.hide();
