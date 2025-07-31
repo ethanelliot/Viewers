@@ -35,6 +35,7 @@ export default {
               return;
             }
 
+            // new zip file
             const zip = new JSZip();
 
             //construct metadata
@@ -59,7 +60,7 @@ export default {
               const fileName = 'image.png';
               zip.file(fileName, blob);
 
-              // generate and download zip
+              // download zip
               zip.generateAsync({ type: 'blob' }).then((content: Blob) => {
                 const link = document.createElement('a');
                 link.href = window.URL.createObjectURL(content);
